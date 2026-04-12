@@ -1,11 +1,29 @@
-import React from 'react';
+import { useEffect, useState } from "react";
+import api from "../services/api";
 
-const Dashboard = () => {
-    return (
-        <div>
-            
+function Dashboard() {
+  const [interviews, setInterviews] = useState([]);
+
+  const fetchData = async () => {
+    const res = await api.get("/interview");
+    setInterviews(res.data.interviews);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      <h2>Dashboard</h2>
+      {interviews.map((i) => (
+        <div key={i._id}>
+          <h3>{i.title}</h3>
+          <p>{i.role}</p>
         </div>
-    );
-};
+      ))}
+    </div>
+  );
+}
 
 export default Dashboard;
