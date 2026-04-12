@@ -20,6 +20,9 @@ function Dashboard() {
         <div key={i._id}>
           <h3>{i.title}</h3>
           <p>{i.role}</p>
+            <button onClick={() => navigate(`/interview/${i._id}`)}>
+            Start Interview
+        </button>
         </div>
       ))}
     </div>
