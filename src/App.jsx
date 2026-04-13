@@ -22,6 +22,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/interview/:id" element={<InterviewPage />} />
           <Route path="/result/:id" element={<ResultPage />} />
+          {/*admin route*/}
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/create-interview" element={<CreateInterview />} />
           <Route path="/admin/add-question" element={<AddQuestion />} />
