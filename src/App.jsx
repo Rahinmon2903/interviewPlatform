@@ -5,6 +5,7 @@ import Register from './Pages/Register';
 import Dashboard from './Pages/Dashboard';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import InterviewPage from './Pages/InterviewPage';
 
 const App = () => {
   return (
@@ -15,6 +16,8 @@ const App = () => {
       <Route path="/" element={<Login />} />
            <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/interview/:id" element={<InterviewPage />} />
+        <Route path="/result/:id" element={<ResultPage />} />
 
     </Routes>
     </BrowserRouter>
