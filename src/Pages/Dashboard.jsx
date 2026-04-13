@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const [interviews, setInterviews] = useState([]);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     const res = await api.get("/interview");

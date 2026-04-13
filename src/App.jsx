@@ -6,6 +6,7 @@ import Dashboard from './Pages/Dashboard';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import InterviewPage from './Pages/InterviewPage';
+import ResultPage from './Pages/ResultPage';
 
 const App = () => {
   return (

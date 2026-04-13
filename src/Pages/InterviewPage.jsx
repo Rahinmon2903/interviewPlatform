@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../services/api";
 
 
@@ -7,6 +7,7 @@ function InterviewPage() {
     const { id } = useParams();
     const [interview, setInterview] = useState(null);
     const [answers, setAnswers] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchInterview = async () => {
