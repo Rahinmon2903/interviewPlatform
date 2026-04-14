@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../../services/api";
+import { toast } from "react-toastify";
 
 function AddQuestion() {
   const [questionText, setQuestionText] = useState("");
@@ -28,6 +29,21 @@ function AddQuestion() {
 
   const handleSubmit = async () => {
     try {
+      if (!questionText.trim()) {
+        return toast.error("Question is required");
+      }
+
+      if (options.some((opt) => opt.trim() === "")) {
+        return toast.error("All options must be filled");
+      }
+
+      if (!correctAnswer) {
+        return toast.error("Select correct answer");
+      }
+
+      if (!interviewId) {
+        return toast.error("Select interview");
+      }
       await api.post("/questions/add", {
         questionText,
         options,
@@ -36,20 +52,19 @@ function AddQuestion() {
         interviewId,
       });
 
-      alert("Question Added");
+      toast.success("Question added successfully");
 
       setQuestionText("");
       setOptions(["", "", "", ""]);
       setCorrectAnswer("");
       setInterviewId("");
     } catch (err) {
-      alert("Error adding question");
+      toast.error("Failed to add question");
     }
   };
 
   return (
     <div className="min-h-screen bg-[#0f0f11] text-white flex">
-
       {/* LEFT */}
       <div className="hidden lg:flex w-1/2 flex-col justify-center px-16 border-r border-white/10">
         <h1 className="text-4xl font-semibold">
@@ -67,7 +82,6 @@ function AddQuestion() {
       {/* RIGHT */}
       <div className="flex w-full lg:w-1/2 items-center justify-center px-6 py-10">
         <div className="w-full max-w-xl space-y-6">
-
           {/* SECTION: INTERVIEW */}
           <div>
             <p className="text-xs text-gray-500 mb-2">INTERVIEW</p>
@@ -105,26 +119,29 @@ function AddQuestion() {
 
             <div className="space-y-3">
               {options.map((opt, i) => {
-                const label = String.fromCharCode(65 + i);
-                const isSelected = correctAnswer === label;
+                const label = String.fromCharCode(65 + i); //A,B,C,D
+                const isSelected = opt !== "" && correctAnswer === opt;
 
                 return (
                   <div
                     key={i}
                     className={`flex items-center gap-3 px-4 py-3 rounded-lg border
-                    ${isSelected
-                      ? "border-purple-500 bg-purple-500/10 scale-[1.01]"
-                      : "border-white/10 bg-[#111]"
+                    ${
+                      isSelected
+                        ? "border-purple-500 bg-purple-500/10 scale-[1.01]"
+                        : "border-white/10 bg-[#111]"
                     }
                     hover:border-purple-400 transition-all duration-200`}
                   >
                     <button
                       type="button"
-                      onClick={() => setCorrectAnswer(label)}
+                      onClick={() => setCorrectAnswer(opt)}
                       className={`w-6 h-6 rounded-full flex items-center justify-center text-xs
-                      ${isSelected
-                        ? "bg-purple-500 text-white"
-                        : "border border-gray-500 text-gray-400"}
+                      ${
+                        isSelected
+                          ? "bg-purple-500 text-white"
+                          : "border border-gray-500 text-gray-400"
+                      }
                       `}
                     >
                       {isSelected ? "✓" : label}
@@ -153,10 +170,8 @@ function AddQuestion() {
           >
             Save Question
           </button>
-
         </div>
       </div>
-
     </div>
   );
 }
