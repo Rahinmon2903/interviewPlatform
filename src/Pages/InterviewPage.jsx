@@ -7,6 +7,7 @@ function InterviewPage() {
     const { id } = useParams();
     const [interview, setInterview] = useState(null);
     const [answers, setAnswers] = useState([]);
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -87,6 +88,7 @@ function InterviewPage() {
                             {/* Options */}
                             <div className="space-y-3">
                                 {q.options.map((opt, index) => {
+                                    
                                     const selected = answers.find(
                                         a => a.questionId === q._id
                                     )?.selectedAnswer === opt;
